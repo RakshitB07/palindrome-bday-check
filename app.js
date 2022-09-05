@@ -42,11 +42,12 @@ function convertDateToString(date) {
 function createDateFormats(date) {
     let dateObjStr = convertDateToString(date);
     let ddmmyyyy = dateObjStr.day + dateObjStr.month + dateObjStr.year;
-    let mmddyyyy = dateObjStr.month + dateObjStr.day + dateObjStr.year;
     let yyyymmdd = dateObjStr.year + dateObjStr.month + dateObjStr.day;
-    let ddmmyy = dateObjStr.day + dateObjStr.month + dateObjStr.year.slice(-2);
-    let mmddyy = dateObjStr.month + dateObjStr.day + dateObjStr.year.slice(-2);
+    let mmddyyyy = dateObjStr.month + dateObjStr.day + dateObjStr.year;
     let yymmdd = dateObjStr.year.slice(-2) + dateObjStr.month + dateObjStr.day;
+    let mmddyy = dateObjStr.month + dateObjStr.day + dateObjStr.year.slice(-2);
+    let ddmmyy = dateObjStr.day + dateObjStr.month + dateObjStr.year.slice(-2);
+
     return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
 }
 
@@ -199,13 +200,12 @@ function clickHandler() {
 
         const isPalindrome = checkPalindrome(dateObject);
 
-        setTimeout(() => {
-            if (isPalindrome) {
-                outputEl.innerHTML = `<p>Your birthday is <span>Palindrome</span></p>`;
-            } else {
+        if (isPalindrome) {
+            outputEl.innerHTML = `<p>Your birthday is <span>Palindrome</span></p>`;
+        } else {
 
-                const [counterNext, nextDate] = nextPalindromeDate(dateObject);
-                outputEl.innerHTML = `<p>The next palindrome date is <span>${
+            const [counterNext, nextDate] = nextPalindromeDate(dateObject);
+            outputEl.innerHTML = `<p>The next palindrome date is <span>${
           nextDate.day
         }-${nextDate.month}-${
           nextDate.year
@@ -213,17 +213,16 @@ function clickHandler() {
           counterNext > 1 ? "days" : "day"
         }.</p>`;
 
-                const [counterPrev, datePrev] = previousPalindromeDate(dateObject);
-                outputEl2.innerHTML = `<p>The previous palindrome date is  <span>${
+            const [counterPrev, datePrev] = previousPalindromeDate(dateObject);
+            outputEl2.innerHTML = `<p>The previous palindrome date is  <span>${
           datePrev.day
         }-${datePrev.month}-${
           datePrev.year
         }</span> , which was <span> ${counterPrev}</span> ${
           counterPrev > 1 ? "days" : "day"
         } ago.</p>`;
-            }
-        }, 0);
+        }
     }
-
 }
+
 checkBtn.addEventListener("click", clickHandler);
